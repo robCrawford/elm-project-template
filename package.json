@@ -1,0 +1,26 @@
+{
+  "name": "elm-project-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/robCrawford/elm-project-template.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/robCrawford/elm-project-template/issues"
+  },
+  "homepage": "https://github.com/robCrawford/elm-project-template",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-elm": "^0.2.0",
+    "gulp-livereload": "^3.8.1",
+    "spa-server": "^1.0.0"
+  }
+}
