@@ -1,17 +1,19 @@
 module Menu.View exposing (..)
 
-import Html exposing (Html, a, li, text, ul)
+import Html exposing (Html, li, section, text, ul)
 import Html.Attributes exposing (class, classList)
 import Html.Events exposing (onClick)
-import Main.Update exposing (Msg(..))
-import Main.ViewModels exposing (Model, Route(..))
+import Types exposing (Model, Msg(..), Route(..))
 
 
 view : Model -> Html Msg
 view model =
-    ul [ class "menu" ]
-        [ menuLink model "Home" "home" HomePage
-        , menuLink model "About" "about" AboutPage
+    section []
+        [ ul [ class "menu" ]
+            [ menuLink model "Home" "home" HomePage
+            , menuLink model "About" "about" AboutPage
+            , menuLink model "Comments" "comments" CommentsPage
+            ]
         ]
 
 

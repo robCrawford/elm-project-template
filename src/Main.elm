@@ -1,9 +1,10 @@
 module Main exposing (..)
 
-import Main.Update exposing (Msg(..), update, updateRoute)
-import Main.View exposing (view)
-import Main.ViewModels exposing (Model, initialModel)
+import Comments exposing (initialModel, subscriptions)
 import Navigation
+import Types exposing (Model, Msg(..))
+import Update exposing (update, updateRoute)
+import View exposing (view)
 
 
 main : Program Never Model Msg
@@ -18,11 +19,18 @@ main =
 
 init : Navigation.Location -> ( Model, Cmd Msg )
 init location =
-    ( updateRoute initialModel location
-    , Cmd.none
-    )
+    updateRoute initialModel location
+
+
+initialModel : Model
+initialModel =
+    { route = Nothing
+    , commentsModel = Comments.initialModel
+    }
 
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.none
+    Sub.batch
+        [ Sub.map CommentsMsg (Comments.subscriptions model.commentsModel)
+        ]
