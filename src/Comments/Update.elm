@@ -1,32 +1,36 @@
 module Comments.Update exposing (..)
 
-import Comments.Services exposing (fetchComments)
-import Comments.Types exposing (Model, Msg(..))
+import Comments.Service exposing (fetchComments)
+import Comments.Type exposing (ExternalMsg(..), Model, Msg(..))
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
+initialModel : Model
+initialModel =
+    { comments = []
+    }
+
+
+update : Msg -> Model -> ( Model, Cmd Msg, ExternalMsg )
 update msg model =
     case msg of
         Refresh ->
-            ( model
-            , if List.length model.comments == 0 then
-                fetchComments
-              else
-                Cmd.none
-            )
-
-        CatchPageClick ->
-            let
-                _ =
-                    Debug.log "" "Page click"
-            in
-            ( model, Cmd.none )
+            if List.length model.comments == 0 then
+                ( model
+                , fetchComments
+                , ExtNone
+                )
+            else
+                ( model
+                , Cmd.none
+                , ExtNone
+                )
 
         SetComments (Ok comments) ->
             ( { model
                 | comments = comments
               }
             , Cmd.none
+            , ExtNone
             )
 
         SetComments (Err err) ->
@@ -34,4 +38,18 @@ update msg model =
                 _ =
                     Debug.log "Error" err
             in
-            ( model, Cmd.none )
+            ( model
+            , Cmd.none
+            , ExtNone
+            )
+
+        ShowAddCommentModal ->
+            ( model
+            , Cmd.none
+            , ExtShowAddCommentModal
+            )
+
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    Sub.none

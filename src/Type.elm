@@ -1,13 +1,16 @@
-module Types exposing (..)
+module Type exposing (..)
 
-import Comments.Types as Comments
+import Comments.Type as Comments
 import Navigation
 
 
 type Msg
-    = RouteChange Navigation.Location
+    = NoOp
+    | RouteChange Navigation.Location
     | ChangeRoute String
     | CommentsMsg Comments.Msg
+    | ShowModal ActiveModal
+    | HideModal
 
 
 type Route
@@ -16,7 +19,12 @@ type Route
     | CommentsPage
 
 
+type ActiveModal
+    = AddCommentModal
+
+
 type alias Model =
     { route : Maybe Route
     , commentsModel : Comments.Model
+    , activeModal : Maybe ActiveModal
     }

@@ -3,7 +3,7 @@ module Menu.View exposing (..)
 import Html exposing (Html, li, section, text, ul)
 import Html.Attributes exposing (class, classList)
 import Html.Events exposing (onClick)
-import Types exposing (Model, Msg(..), Route(..))
+import Type exposing (Model, Msg(..), Route(..))
 
 
 view : Model -> Html Msg

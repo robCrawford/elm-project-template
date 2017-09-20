@@ -1,14 +1,16 @@
 module Comments.View exposing (..)
 
-import Comments.Types exposing (Comment, Model, Msg(..))
-import Html exposing (Html, div, h4, p, section, text)
+import Comments.Type exposing (Comment, Model, Msg(..))
+import Html exposing (Html, button, div, h4, p, section, text)
 import Html.Attributes exposing (class)
+import Html.Events exposing (onClick)
 
 
 view : Model -> Html Msg
 view model =
     section [] <|
-        List.map commentHtml model.comments
+        button [ onClick ShowAddCommentModal ] [ text "Add comment..." ]
+            :: List.map commentHtml model.comments
 
 
 commentHtml : Comment -> Html Msg

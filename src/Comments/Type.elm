@@ -1,12 +1,17 @@
-module Comments.Types exposing (..)
+module Comments.Type exposing (..)
 
 import Http
 
 
 type Msg
     = Refresh
-    | CatchPageClick
     | SetComments (Result Http.Error (List Comment))
+    | ShowAddCommentModal
+
+
+type ExternalMsg
+    = ExtNone
+    | ExtShowAddCommentModal
 
 
 type alias Model =

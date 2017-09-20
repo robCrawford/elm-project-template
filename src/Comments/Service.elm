@@ -1,6 +1,6 @@
-module Comments.Services exposing (..)
+module Comments.Service exposing (..)
 
-import Comments.Types exposing (Comment, Msg(..))
+import Comments.Type exposing (Comment, Msg(..))
 import Http
 import Json.Decode as Decode
 
@@ -8,7 +8,7 @@ import Json.Decode as Decode
 fetchComments : Cmd Msg
 fetchComments =
     Http.send SetComments <|
-        Http.get "http://jsonplaceholder.typicode.com/posts/" commentsResponseDecoder
+        Http.get "http://jsonplaceholder.typicode.com/posts" commentsResponseDecoder
 
 
 commentsResponseDecoder : Decode.Decoder (List Comment)
