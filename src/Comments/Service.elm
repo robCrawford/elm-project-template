@@ -1,6 +1,6 @@
 module Comments.Service exposing (..)
 
-import Comments.Type exposing (Comment, Msg(..))
+import Comments.Type exposing (Msg(..))
 import Http
 import Json.Decode as Decode
 
@@ -11,15 +11,11 @@ fetchComments =
         Http.get "http://jsonplaceholder.typicode.com/posts" commentsResponseDecoder
 
 
-commentsResponseDecoder : Decode.Decoder (List Comment)
+commentsResponseDecoder : Decode.Decoder (List String)
 commentsResponseDecoder =
     Decode.list commentDecoder
 
 
-commentDecoder : Decode.Decoder Comment
+commentDecoder : Decode.Decoder String
 commentDecoder =
-    Decode.map4 Comment
-        (Decode.field "userId" Decode.int)
-        (Decode.field "id" Decode.int)
-        (Decode.field "title" Decode.string)
-        (Decode.field "body" Decode.string)
+    Decode.field "body" Decode.string

@@ -37,16 +37,6 @@ section {
     padding: 16px;
     margin: 16px 0;
 }
-.comment h4,
-.comment p {
-    padding: 2px;
-    margin: 0;
-    line-height: 18px;
-}
-.comment h4 {
-    text-transform: capitalize;
-    color: #666;
-}
 
 /* Modal */
 .modal-overlay {

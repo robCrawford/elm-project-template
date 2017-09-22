@@ -5,23 +5,19 @@ import Http
 
 type Msg
     = Refresh
-    | SetComments (Result Http.Error (List Comment))
+    | SetComments (Result Http.Error (List String))
     | ShowAddCommentModal
+    | AddComment String
+    | SetAddCommentInput String
 
 
 type ExternalMsg
     = ExtNone
     | ExtShowAddCommentModal
+    | ExtHideModal
 
 
 type alias Model =
-    { comments : List Comment
-    }
-
-
-type alias Comment =
-    { userId : Int
-    , id : Int
-    , title : String
-    , body : String
+    { comments : List String
+    , addCommentInput : String
     }

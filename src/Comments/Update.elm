@@ -7,6 +7,7 @@ import Comments.Type exposing (ExternalMsg(..), Model, Msg(..))
 initialModel : Model
 initialModel =
     { comments = []
+    , addCommentInput = ""
     }
 
 
@@ -47,6 +48,21 @@ update msg model =
             ( model
             , Cmd.none
             , ExtShowAddCommentModal
+            )
+
+        SetAddCommentInput str ->
+            ( { model | addCommentInput = str }
+            , Cmd.none
+            , ExtNone
+            )
+
+        AddComment comment ->
+            ( { model
+                | comments = comment :: model.comments
+                , addCommentInput = ""
+              }
+            , Cmd.none
+            , ExtHideModal
             )
 
 

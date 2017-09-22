@@ -62,6 +62,9 @@ commentsExternalCmd externalMsg =
         Comments.ExtShowAddCommentModal ->
             toCmd (ShowModal AddCommentModal)
 
+        Comments.ExtHideModal ->
+            toCmd HideModal
+
 
 updateRoute : Model -> Navigation.Location -> ( Model, Cmd Msg )
 updateRoute model location =

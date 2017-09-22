@@ -1,9 +1,9 @@
 module Comments.View exposing (..)
 
-import Comments.Type exposing (Comment, Model, Msg(..))
-import Html exposing (Html, button, div, h4, p, section, text)
-import Html.Attributes exposing (class)
-import Html.Events exposing (onClick)
+import Comments.Type exposing (Model, Msg(..))
+import Html exposing (Html, button, div, form, section, text, textarea)
+import Html.Attributes exposing (class, placeholder, type_, value)
+import Html.Events exposing (onClick, onInput, onSubmit)
 
 
 view : Model -> Html Msg
@@ -13,9 +13,26 @@ view model =
             :: List.map commentHtml model.comments
 
 
-commentHtml : Comment -> Html Msg
+commentHtml : String -> Html Msg
 commentHtml comment =
-    div [ class "comment" ]
-        [ h4 [] [ text comment.title ]
-        , p [] [ text comment.body ]
+    div [ class "comment" ] [ text comment ]
+
+
+addCommentModalHtml : Model -> Html Msg
+addCommentModalHtml model =
+    div []
+        [ div [ class "header" ]
+            [ text "Your comment" ]
+        , form
+            [ class "content"
+            , onSubmit (AddComment model.addCommentInput)
+            ]
+            [ textarea
+                [ placeholder "..."
+                , onInput SetAddCommentInput
+                , value model.addCommentInput
+                ]
+                []
+            , button [ type_ "submit" ] [ text "Submit" ]
+            ]
         ]

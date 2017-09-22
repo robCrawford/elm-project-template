@@ -25,8 +25,8 @@ gulp.task('webserver', function () {
 gulp.task('elm', function() {
     return gulp.src('src/Main.elm')
         .pipe(elm.bundle('elm-bundle.js', { warn: true, debug: true }))
-        .pipe(uglify())
         .on('error', errorHandler)
+        .pipe(uglify())
         .pipe(gulp.dest('public/js/'))
         .pipe(livereload());
 });
