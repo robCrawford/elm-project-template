@@ -3,7 +3,6 @@ module Update exposing (..)
 import Comments.Type as Comments
 import Comments.Update as Comments
 import Navigation
-import Task
 import Type exposing (ActiveModal(..), Model, Msg(..), Route(..))
 import UrlParser
 import Util.Core exposing (toCmd)
@@ -54,6 +53,7 @@ update msg model =
             )
 
 
+commentsExternalCmd : Comments.ExternalMsg -> Cmd Msg
 commentsExternalCmd externalMsg =
     case externalMsg of
         Comments.ExtNone ->

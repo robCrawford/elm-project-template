@@ -2,6 +2,7 @@
 var gulp = require('gulp'),
     elm = require('gulp-elm'),
     gutil = require('gulp-util'),
+    uglify = require('gulp-uglify'),
     livereload = require('gulp-livereload'),
     serverFactory = require('spa-server');
 
@@ -23,7 +24,8 @@ gulp.task('webserver', function () {
 
 gulp.task('elm', function() {
     return gulp.src('src/Main.elm')
-        .pipe(elm())
+        .pipe(elm.bundle('elm-bundle.js', { warn: true, debug: true }))
+        .pipe(uglify())
         .on('error', errorHandler)
         .pipe(gulp.dest('public/js/'))
         .pipe(livereload());
