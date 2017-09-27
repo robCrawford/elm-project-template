@@ -4,3 +4,4 @@ elm-stuff
 *.vscode
 .idea
 public/js
+public/css

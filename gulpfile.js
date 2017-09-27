@@ -3,12 +3,11 @@ var gulp = require('gulp'),
     elm = require('gulp-elm'),
     gutil = require('gulp-util'),
     uglify = require('gulp-uglify'),
+    sass = require('gulp-sass'),
     livereload = require('gulp-livereload'),
     serverFactory = require('spa-server');
 
 function errorHandler(err) {
-    gutil.log(err.toString());
-    gutil.log('\r\n' + err.codeFrame);
     gutil.beep();
     this.emit('end');
 }
@@ -23,15 +22,25 @@ gulp.task('webserver', function () {
 });
 
 gulp.task('elm', function() {
-    return gulp.src('src/Main.elm')
+    return gulp.src('./src/elm/Main.elm')
         .pipe(elm.bundle('elm-bundle.js', { warn: true, debug: true }))
         .on('error', errorHandler)
         .pipe(uglify())
-        .pipe(gulp.dest('public/js/'))
+        .pipe(gulp.dest('./public/js/'))
         .pipe(livereload());
 });
 
-gulp.task('default', ['webserver', 'elm'],  function() {
+gulp.task('sass', function () {
+    return gulp.src('./src/sass/**/*.scss')
+        .pipe(sass({ outputStyle: 'compressed' })
+            .on('error', sass.logError))
+        .on('error', errorHandler)
+        .pipe(gulp.dest('./public/css'))
+        .pipe(livereload());
+});
+
+gulp.task('default', ['webserver', 'elm', 'sass'],  function() {
     livereload.listen();
-    gulp.watch('src/**/*.elm', ['elm']);
+    gulp.watch('./src/elm/**/*.elm', ['elm']);
+    gulp.watch('./src/sass/**/*.scss', ['sass']);
 });

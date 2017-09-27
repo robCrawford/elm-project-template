@@ -21,6 +21,7 @@
     "gulp": "*",
     "gulp-elm": "*",
     "gulp-livereload": "*",
+    "gulp-sass": "*",
     "gulp-uglify": "*",
     "spa-server": "*"
   }
