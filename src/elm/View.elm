@@ -8,12 +8,12 @@ import Html.Attributes exposing (class, classList)
 import Html.Events exposing (defaultOptions, onClick, onInput, onWithOptions)
 import Json.Decode
 import Menu.View as Menu
-import Type exposing (ActiveModal(..), Model, Msg(..), Route(..))
+import Type exposing (..)
 
 
 view : Model -> Html Msg
 view model =
-    div []
+    div [ class "content"]
         [ Menu.view model
         , case model.route of
             Just HomePage ->
@@ -28,14 +28,23 @@ view model =
             Nothing ->
                 section [] [ text "Unknown page." ]
 
-        -- Modals
-        , modalHtml
-            [ class "add-comment"
-            , classList [ ( "active", model.activeModal == Just AddCommentModal ) ]
-            ]
-            [ Comments.addCommentModalHtml model.commentsModel
-                |> Html.map CommentsMsg
-            ]
+        , modalView model
+            { id = AddCommentModal
+            , class = "add-comment"
+            , view = Comments.addCommentModalHtml
+            , model = model.commentsModel
+            , tagger = CommentsMsg
+            }
+        ]
+
+
+modalView : Model -> ModalConfig subModel subMsg -> Html Msg
+modalView model config =
+    modalHtml
+        [ class config.class
+        , classList [ ( "active", model.activeModal == Just config.id ) ]
+        ]
+        [ Html.map config.tagger (config.view config.model)
         ]
 
 

@@ -1,6 +1,7 @@
 module Type exposing (..)
 
 import Comments.Type as Comments
+import Html exposing (Html)
 import Navigation
 
 
@@ -9,7 +10,7 @@ type Msg
     | RouteChange Navigation.Location
     | ChangeRoute String
     | CommentsMsg Comments.Msg
-    | ShowModal ActiveModal
+    | ShowModal ModalId
     | HideModal
 
 
@@ -19,12 +20,21 @@ type Route
     | CommentsPage
 
 
-type ActiveModal
+type ModalId
     = AddCommentModal
 
 
 type alias Model =
     { route : Maybe Route
     , commentsModel : Comments.Model
-    , activeModal : Maybe ActiveModal
+    , activeModal : Maybe ModalId
+    }
+
+
+type alias ModalConfig subModel subMsg =
+    { id : ModalId
+    , class : String
+    , view : subModel -> Html subMsg
+    , model : subModel
+    , tagger : subMsg -> Msg
     }

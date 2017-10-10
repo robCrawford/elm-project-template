@@ -3,7 +3,7 @@ module Update exposing (..)
 import Comments.Type as Comments
 import Comments.Update as Comments
 import Navigation
-import Type exposing (ActiveModal(..), Model, Msg(..), Route(..))
+import Type exposing (..)
 import UrlParser
 import Util.Core exposing (toCmd)
 
@@ -42,8 +42,8 @@ update msg model =
                 ]
             )
 
-        ShowModal modalType ->
-            ( { model | activeModal = Just modalType }
+        ShowModal modalId ->
+            ( { model | activeModal = Just modalId }
             , Cmd.none
             )
 
