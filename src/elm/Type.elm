@@ -11,6 +11,7 @@ type Msg
     | ChangeRoute String
     | CommentsMsg Comments.Msg
     | ShowModal ModalId
+    | ShowGenericModal (() -> Html Msg)
     | HideModal
 
 
@@ -21,20 +22,23 @@ type Route
 
 
 type ModalId
-    = AddCommentModal
+    = GenericModal
+    | AddCommentModal
 
 
 type alias Model =
     { route : Maybe Route
     , commentsModel : Comments.Model
     , activeModal : Maybe ModalId
+    , getModalContent : Maybe (() -> Html Msg)
     }
 
 
-type alias ModalConfig subModel subMsg =
+type alias ModalConfig model contentModel contentMsg =
     { id : ModalId
     , class : String
-    , view : subModel -> Html subMsg
-    , model : subModel
-    , tagger : subMsg -> Msg
+    , model : model
+    , getContent : contentModel -> Html contentMsg
+    , contentModel : contentModel
+    , contentTagger : contentMsg -> Msg
     }

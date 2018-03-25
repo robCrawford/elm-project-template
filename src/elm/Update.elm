@@ -13,6 +13,7 @@ initialModel =
     { route = Nothing
     , commentsModel = Comments.initialModel
     , activeModal = Nothing
+    , getModalContent = Nothing
     }
 
 
@@ -47,8 +48,16 @@ update msg model =
             , Cmd.none
             )
 
+        ShowGenericModal getHtml ->
+            ( { model | getModalContent = Just getHtml }
+            , toCmd (ShowModal GenericModal)
+            )
+
         HideModal ->
-            ( { model | activeModal = Nothing }
+            ( { model
+                | activeModal = Nothing
+                , getModalContent = Nothing
+              }
             , Cmd.none
             )
 
